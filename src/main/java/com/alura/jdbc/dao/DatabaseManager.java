@@ -12,15 +12,18 @@ public class DatabaseManager {
         this.connection = connection;
     }
 
+ // Iniciar una transacción en la base de datos
     public void beginTransaction() throws SQLException {
         connection.setAutoCommit(false);
     }
 
+    // Confirmar una transacción en la base de datos
     public void commitTransaction() throws SQLException {
         connection.commit();
         connection.setAutoCommit(true);
     }
 
+    // Revertir una transacción en la base de datos
     public void rollbackTransaction() {
         try {
             connection.rollback();
@@ -30,6 +33,7 @@ public class DatabaseManager {
         }
     }
 
+    // Cerrar la conexión a la base de datos
     public void close() {
         try {
             connection.close();
@@ -38,6 +42,7 @@ public class DatabaseManager {
         }
     }
 
+    // Ejecutar una consulta de actualización (INSERT, UPDATE, DELETE) en la base de datos
     public void executeUpdate(String query, Object... parameters) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             for (int i = 0; i < parameters.length; i++) {

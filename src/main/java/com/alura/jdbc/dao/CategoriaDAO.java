@@ -18,6 +18,7 @@ public class CategoriaDAO {
         this.con = con;
     }
 
+    // Método para listar todas las categorías de la base de datos
     public List<Categoria> listar() {
         List<Categoria> resultado = new ArrayList<>();
         
@@ -41,7 +42,8 @@ public class CategoriaDAO {
         return resultado;
     }
 
-	public List<Categoria> listarConProductos() {
+    // Método para listar categorías con sus productos asociados utilizando una consulta JOIN
+    public List<Categoria> listarConProductos() {
 		List<Categoria> resultado = new ArrayList<>();
         
         try {

@@ -4,11 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Optional;
-
-import javax.management.RuntimeErrorException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,7 +22,8 @@ import com.alura.jdbc.modelo.Producto;
 public class ControlDeStockFrame extends JFrame {
 
     private static final long serialVersionUID = 1L;
-
+    
+    // Componentes de la interfaz
     private JLabel labelNombre, labelDescripcion, labelCantidad, labelCategoria;
     private JTextField textoNombre, textoDescripcion, textoCantidad;
     private JComboBox<Categoria> comboCategoria;
@@ -39,22 +36,28 @@ public class ControlDeStockFrame extends JFrame {
     public ControlDeStockFrame() {
         super("Productos");
 
+        // Inicializar controladores
         this.categoriaController = new CategoriaController();
         this.productoController = new ProductoController();
 
+        // Configurar el contenedor y el diseño nulo
         Container container = getContentPane();
         setLayout(null);
 
+        // Configurar campos del formulario
         configurarCamposDelFormulario(container);
 
+        // Configurar tabla de contenido
         configurarTablaDeContenido(container);
 
+        // Configurar acciones de los botones
         configurarAccionesDelFormulario();
     }
 
     private void configurarTablaDeContenido(Container container) {
         tabla = new JTable();
-
+        
+     // Configurar modelo de la tabla
         modelo = (DefaultTableModel) tabla.getModel();
         modelo.addColumn("Identificador del Producto");
         modelo.addColumn("Nombre del Producto");
@@ -64,7 +67,8 @@ public class ControlDeStockFrame extends JFrame {
         cargarTabla();
 
         tabla.setBounds(10, 205, 760, 280);
-
+        
+     // Configurar posición y dimensiones de la tabla y botones
         botonEliminar = new JButton("Eliminar");
         botonModificar = new JButton("Modificar");
         botonReporte = new JButton("Ver Reporte");
@@ -72,6 +76,7 @@ public class ControlDeStockFrame extends JFrame {
         botonModificar.setBounds(100, 500, 80, 20);
         botonReporte.setBounds(190, 500, 80, 20);
 
+     // Agregar componentes al contenedor
         container.add(tabla);
         container.add(botonEliminar);
         container.add(botonModificar);
@@ -83,27 +88,31 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void configurarCamposDelFormulario(Container container) {
+    	 // Configurar etiquetas
         labelNombre = new JLabel("Nombre del Producto");
         labelDescripcion = new JLabel("Descripción del Producto");
         labelCantidad = new JLabel("Cantidad");
         labelCategoria = new JLabel("Categoría del Producto");
 
+        // Configurar etiquetas
         labelNombre.setBounds(10, 10, 240, 15);
         labelDescripcion.setBounds(10, 50, 240, 15);
         labelCantidad.setBounds(10, 90, 240, 15);
         labelCategoria.setBounds(10, 130, 240, 15);
 
+        // Configurar campos de texto y combo box
         labelNombre.setForeground(Color.BLACK);
         labelDescripcion.setForeground(Color.BLACK);
         labelCategoria.setForeground(Color.BLACK);
 
+     // Configurar botones
         textoNombre = new JTextField();
         textoDescripcion = new JTextField();
         textoCantidad = new JTextField();
         comboCategoria = new JComboBox<>();
         comboCategoria.addItem(new Categoria(0, "Elige una Categoría"));
 
-        
+     // Agregar componentes al contenedor
         var categorias = this.categoriaController.listar();
         categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
@@ -130,6 +139,7 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void configurarAccionesDelFormulario() {
+    	// Configurar acciones de los botones
         botonGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 guardar();
@@ -166,7 +176,8 @@ public class ControlDeStockFrame extends JFrame {
             }
         });
     }
-
+    
+ // Métodos adicionales para manejar acciones y funciones
     private void abrirReporte() {
         new ReporteFrame(this);
     }
